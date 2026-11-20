@@ -6,8 +6,7 @@ from typing import Literal
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from google import genai
 
 logging.basicConfig(level=logging.INFO)
@@ -22,13 +21,13 @@ client = genai.Client(api_key=API_KEY) if API_KEY else None
 
 
 class HistoryMessage(BaseModel):
-    role: Literal["user", "model"]
+    role: Literal["user", "model", "assistant"]
     content: str
 
 
 class ChatRequest(BaseModel):
     message: str
-    history: list[HistoryMessage] = []
+    history: list[HistoryMessage] = Field(default_factory=list)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -53,15 +52,16 @@ async def status():
     }
 
 
-def ask_gemini(message: str, history: list[HistoryMessage]):
+def ask_gemini(message, history):
     if client is None:
-        raise RuntimeError("Configure a variável GEMINI_API_KEY no Render.")
+        raise RuntimeError("Configure GEMINI_API_KEY no Render.")
 
     contents = []
 
     for item in history[-20:]:
+        role = "model" if item.role == "assistant" else item.role
         contents.append({
-            "role": item.role,
+            "role": role,
             "parts": [{"text": item.content}]
         })
 
@@ -75,27 +75,22 @@ def ask_gemini(message: str, history: list[HistoryMessage]):
         contents=contents,
         config={
             "system_instruction": """
-Você é Segunda-Feira, um agente pessoal inteligente,
-estrategista e assistente de negócios.
+Você é Segunda-Feira, um agente pessoal inteligente
+e estrategista de negócios.
 
-Sua missão é ajudar o usuário a encontrar oportunidades
-de renda, planejar pequenos negócios, pesquisar produtos,
-organizar fornecedores, clientes, vendas, despesas e lucros.
+Ajude a encontrar oportunidades de renda, planejar
+negócios, pesquisar produtos e fornecedores, organizar
+clientes, vendas, despesas e lucros.
 
-Ajude a criar anúncios, estratégias comerciais, planos de
-ação e tarefas práticas.
+Ajude a criar anúncios, estratégias comerciais,
+planos de ação e tarefas práticas.
 
-Seja organizado, objetivo, criativo e fale sempre em
-português brasileiro.
+Fale sempre em português brasileiro.
+Seja organizado, criativo e objetivo.
 
-Não invente pesquisas, preços, compras ou ações realizadas.
-Quando não tiver acesso a uma ferramenta externa, explique
-isso claramente.
-
-Nunca faça pagamentos, compras, transferências ou publicações
-sem autorização expressa do usuário.
-
-Ajude o usuário a transformar ideias em planos executáveis.
+Nunca invente pesquisas, preços ou ações realizadas.
+Não faça compras, pagamentos, transferências ou
+publicações sem autorização expressa do usuário.
 """
         }
     )
@@ -116,11 +111,11 @@ async def chat(request: ChatRequest):
         )
         return {"response": answer}
 
-    except Exception as error:
+    except Exception:
         logger.exception("Erro ao conversar com Gemini")
         raise HTTPException(
             status_code=502,
-            detail=f"Erro na inteligência artificial: {str(error)}"
+            detail="Não consegui acessar a inteligência artificial. Confira a chave e os logs do Render."
         )
 
 
