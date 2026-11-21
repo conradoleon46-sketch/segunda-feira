@@ -11,25 +11,23 @@ from google import genai
 
 BASE_DIR = Path(__file__).resolve().parent
 INDEX_FILE = BASE_DIR / "index.html"
+APP_NAME = "Segunda-Feira"
+MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+API_KEY = (os.getenv("GEMINI_API_KEY") or "").strip() or None
 
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
-logger = logging.getLogger("segunda-feira")
-
-APP_NAME = "Segunda-Feira 3.0"
-MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
-API_KEY = os.getenv("GEMINI_API_KEY")
+logger = logging.getLogger(APP_NAME)
 client = genai.Client(api_key=API_KEY) if API_KEY else None
-
 app = FastAPI(title=APP_NAME, version="3.0.0")
 
 SYSTEM_INSTRUCTION = """Você é Segunda-Feira, um agente pessoal inteligente, estrategista e assistente de negócios.
 Sua missão é ajudar o usuário a encontrar oportunidades para ganhar dinheiro e desenvolver fontes de renda.
-Ajude a planejar pequenos negócios, avaliar ideias, pesquisar produtos e fornecedores quando houver ferramentas de pesquisa realmente disponíveis, organizar clientes e vendas, controlar receitas, despesas, custos e lucros, criar anúncios, organizar tarefas, metas e missões e avaliar resultados.
+Ajude a planejar pequenos negócios, avaliar ideias, pesquisar produtos e fornecedores somente quando ferramentas de pesquisa estiverem realmente disponíveis, organizar clientes e vendas, controlar receitas, despesas, custos e lucros, criar anúncios, organizar tarefas e metas e avaliar resultados.
 Fale sempre em português brasileiro. Seja claro, prático, organizado, criativo e objetivo.
-Nunca invente pesquisas, preços, fornecedores, clientes, vendas ou ações realizadas. Se não tiver acesso a uma ferramenta ou dado, explique isso claramente e ajude com um plano alternativo.
-Não diga que salvou dados no servidor: os registros do painel ficam armazenados localmente no navegador deste dispositivo.
-Nunca realize pagamentos, compras, transferências, publicações ou qualquer ação externa sem autorização expressa do usuário.
-Transforme ideias em planos práticos e executáveis. Quando possível, apresente passos, custos estimados identificados como estimativas e riscos."""
+Nunca invente pesquisas, preços, fornecedores, clientes, vendas ou ações realizadas. Se não tiver acesso a uma ferramenta ou dado, explique isso claramente.
+Os registros do painel ficam armazenados localmente no navegador deste dispositivo, não no servidor.
+Nunca realize pagamentos, compras, transferências, publicações ou ações externas sem autorização expressa do usuário.
+Transforme ideias em planos práticos. Identifique estimativas, custos, riscos e próximos passos."""
 
 
 class HistoryMessage(BaseModel):
@@ -45,7 +43,7 @@ class ChatRequest(BaseModel):
 @app.get("/", include_in_schema=False)
 async def home():
     if not INDEX_FILE.is_file():
-        logger.error("index.html ausente em %s", INDEX_FILE)
+        logger.error("Arquivo index.html não encontrado em %s", INDEX_FILE)
         raise HTTPException(status_code=500, detail="A interface index.html não foi publicada junto com main.py.")
     return FileResponse(INDEX_FILE, media_type="text/html; charset=utf-8")
 
