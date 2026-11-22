@@ -49,6 +49,12 @@
       overflow-x: hidden;
     }
 
+    /* Scrollbars discretas */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: rgba(7, 7, 11, 0.7); }
+    ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.35); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.65); }
+
     /* Camadas Cinematográficas de Profundidade */
     .realm-backdrop {
       position: fixed;
@@ -236,10 +242,22 @@
       border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     }
 
+    .brand-crest {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.28), rgba(10, 10, 15, 0.95));
+      border: 1px solid var(--gold-primary);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
     .brand-title {
       margin: 0;
       font-family: var(--font-display);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       letter-spacing: 0.04em;
       background: linear-gradient(135deg, #fff2bf 0%, #d4af37 55%, #b18621 100%);
       -webkit-background-clip: text;
@@ -268,6 +286,7 @@
       background: var(--gold-bright);
       box-shadow: 0 0 8px var(--gold-bright);
       animation: pulseGlow 1.8s infinite;
+      flex-shrink: 0;
     }
 
     @keyframes pulseGlow {
@@ -332,6 +351,9 @@
       border: 1px solid rgba(212, 175, 55, 0.25);
     }
 
+    .capital-mini-card small { font-size: 0.72rem; color: var(--text-muted); }
+    .capital-mini-card strong { font-family: var(--font-display); font-size: 1.08rem; color: var(--gold-bright); }
+
     .main-column {
       display: flex;
       flex-direction: column;
@@ -345,6 +367,7 @@
       justify-content: space-between;
       gap: 12px;
       padding: 14px 18px;
+      flex-wrap: wrap;
     }
 
     .topbar-left {
@@ -381,13 +404,13 @@
     }
 
     .status-dot { width: 8px; height: 8px; border-radius: 50%; }
-    .status-dot.online { background: var(--success); }
+    .status-dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); }
     .status-dot.offline { background: var(--warning); }
 
-    .governance-banner { font-size: 0.82rem; color: #e4dcc8; line-height: 1.45; }
+    .governance-banner { font-size: 0.82rem; color: #e4dcc8; line-height: 1.45; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 
     /* Painéis e Grids */
-    .workspace { display: flex; flex-direction: column; gap: 16px; padding-bottom: 24px; }
+    .workspace { display: flex; flex-direction: column; gap: 16px; padding-bottom: calc(24px + var(--safe-bottom)); }
 
     .tab-section {
       display: none;
@@ -437,7 +460,7 @@
       letter-spacing: 0.05em;
     }
 
-    .kpi-value { font-family: var(--font-display); font-size: 1.55rem; font-weight: 700; }
+    .kpi-value { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; }
     .kpi-meta { font-size: 0.78rem; color: var(--text-muted); }
 
     .grid-2-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -493,7 +516,7 @@
     .field { display: flex; flex-direction: column; gap: 5px; font-size: 0.8rem; color: var(--text-muted); }
     .field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .field-row-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .spaced-row { margin: 12px 0; }
 
     .input-obsidian {
@@ -504,7 +527,7 @@
       background: var(--bg-input);
       color: var(--text-main);
       font-family: var(--font-body);
-      font-size: 16px;
+      font-size: 15px;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
@@ -514,7 +537,7 @@
       box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.16);
     }
 
-    input[type="range"] { width: 100%; accent-color: var(--gold-primary); }
+    input[type="range"] { width: 100%; accent-color: var(--gold-primary); cursor: pointer; }
     .range-field { display: flex; flex-direction: column; gap: 4px; font-size: 0.82rem; color: var(--text-muted); }
     .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
 
@@ -558,8 +581,10 @@
       background: rgba(224, 93, 93, 0.1);
       color: #ff9c9c;
     }
+    .btn-danger-outline:hover { background: rgba(224, 93, 93, 0.2); }
 
     .btn-link { background: transparent; border: none; padding: 4px; color: var(--gold-bright); }
+    .btn-link:hover { text-decoration: underline; }
 
     .icon-btn {
       padding: 8px 11px;
@@ -595,6 +620,7 @@
       overflow: hidden;
       border: 1px solid rgba(212, 175, 55, 0.35);
       margin: 10px 0;
+      background: rgba(255, 255, 255, 0.04);
     }
 
     .breakdown-list, .context-list {
@@ -603,14 +629,15 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 7px;
       font-size: 0.83rem;
     }
 
-    .breakdown-list li { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); }
+    .breakdown-list li, .context-list li { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); gap: 8px; }
+    .breakdown-list li strong, .context-list li strong { color: var(--text-main); }
     .dot-legend { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; }
     .lot-summary { margin-top: 14px; }
-    .lot-summary h4, .breakdown-section h4, .ledger-wrap h4, .context-box h4 { margin: 0 0 6px; font-size: 0.88rem; color: var(--gold-bright); }
+    .lot-summary h4, .breakdown-section h4, .ledger-wrap h4, .context-box h4 { margin: 0 0 8px; font-size: 0.88rem; color: var(--gold-bright); }
 
     /* Financeiro & Relatórios */
     .ledger-wrap { margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(212, 175, 55, 0.2); }
@@ -635,11 +662,11 @@
       font-size: 0.84rem;
     }
 
-    .alloc-readonly { padding: 10px; border-radius: 8px; background: rgba(212, 175, 55, 0.08); font-size: 0.84rem; }
+    .alloc-readonly { padding: 10px 12px; border-radius: 8px; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.24); font-size: 0.84rem; }
     .gold-divider { border: none; border-top: 1px solid rgba(212, 175, 55, 0.22); margin: 4px 0; }
     .report-summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
 
-    /* Chat IA */
+    /* Chat IA (continuação completa do trecho cortado) */
     .chat-panel { display: flex; flex-direction: column; height: min(680px, 76vh); }
     .ai-identity { display: flex; align-items: center; gap: 10px; }
 
@@ -652,6 +679,7 @@
       font-size: 1.35rem;
       background: radial-gradient(circle, rgba(212, 175, 55, 0.35), rgba(10, 10, 15, 0.95));
       border: 1px solid var(--gold-primary);
+      flex-shrink: 0;
     }
 
     .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 8px 4px; }
@@ -662,4 +690,1527 @@
       border-radius: 12px;
       font-size: 0.88rem;
       line-height: 1.5;
-     
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .msg-bubble.ai {
+      align-self: flex-start;
+      background: rgba(18, 18, 28, 0.92);
+      border: 1px solid rgba(212, 175, 55, 0.34);
+      color: var(--text-main);
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg-bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.26), rgba(168, 128, 32, 0.16));
+      border: 1px solid rgba(245, 215, 127, 0.5);
+      color: #fff8e4;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg-meta {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .quick-prompts {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding: 8px 0;
+    }
+
+    .prompt-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.09);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      color: var(--gold-bright);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+
+    .prompt-chip:hover {
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .text-success { color: var(--success); }
+    .text-danger { color: var(--danger); }
+    .text-warning { color: var(--warning); }
+    .text-gold { color: var(--gold-bright); }
+    .text-muted { color: var(--text-muted); }
+
+    .toast {
+      position: fixed;
+      bottom: calc(20px + var(--safe-bottom));
+      right: 20px;
+      z-index: 60;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: rgba(12, 12, 18, 0.96);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-bright);
+      font-size: 0.85rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .mobile-only { display: none; }
+    .drawer-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 35;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(3px);
+    }
+    .drawer-backdrop.open { display: block; }
+
+    @media (max-width: 1120px) {
+      .kpi-grid, .report-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-asymmetric, .grid-2-col { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 880px) {
+      .app-shell { grid-template-columns: 1fr; padding: 12px; }
+      .mobile-only { display: inline-flex; }
+      .library-wing { width: 46px; opacity: 0.3; }
+      .sidebar {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        bottom: 12px;
+        width: min(290px, 84vw);
+        height: auto;
+        z-index: 40;
+        transform: translateX(-115%);
+        transition: transform 0.25s ease;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .field-row, .field-row-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Camadas Cinematográficas -->
+  <div class="realm-backdrop" aria-hidden="true">
+    <div class="sky-atmosphere"></div>
+
+    <svg class="parallax-landscape" id="parallaxLandscape" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="mountainGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#14192d" />
+          <stop offset="100%" stop-color="#07070c" />
+        </linearGradient>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff4cc" stop-opacity="0.95" />
+          <stop offset="40%" stop-color="#d4af37" stop-opacity="0.35" />
+          <stop offset="100%" stop-color="#d4af37" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="1220" cy="170" r="145" fill="url(#moonGlow)" />
+      <circle cx="1220" cy="170" r="46" fill="#f7e7b4" opacity="0.88" />
+      <path d="M0 640 L210 470 L420 590 L660 410 L890 560 L1140 430 L1380 540 L1600 450 L1600 900 L0 900 Z" fill="url(#mountainGrad)" opacity="0.72" />
+      <path d="M0 730 L180 620 L360 700 L560 590 L790 680 L1020 570 L1270 675 L1600 600 L1600 900 L0 900 Z" fill="#090910" opacity="0.9" />
+      <!-- Cidadela distante -->
+      <g transform="translate(700,455)" fill="#0c0d16">
+        <rect x="0" y="65" width="190" height="90" />
+        <rect x="20" y="25" width="32" height="130" />
+        <polygon points="16,25 36,0 56,25" />
+        <rect x="78" y="10" width="40" height="145" />
+        <polygon points="72,10 98,-24 124,10" />
+        <rect x="138" y="32" width="30" height="123" />
+        <polygon points="134,32 153,8 172,32" />
+        <g class="castle-lights" fill="#f5c65c">
+          <rect x="32" y="45" width="6" height="10" rx="2" />
+          <rect x="94" y="34" width="8" height="12" rx="2" />
+          <rect x="94" y="62" width="8" height="12" rx="2" />
+          <rect x="149" y="52" width="6" height="10" rx="2" />
+          <rect x="58" y="90" width="8" height="12" rx="2" />
+          <rect x="122" y="90" width="8" height="12" rx="2" />
+        </g>
+      </g>
+    </svg>
+
+    <div class="library-architecture">
+      <div class="library-wing library-left"></div>
+      <div class="library-wing library-right"></div>
+      <div class="candelabra-glow"></div>
+      <div class="stone-arch-top"></div>
+    </div>
+
+    <div class="dragon-stage">
+      <canvas id="dragonCanvas"></canvas>
+    </div>
+
+    <div class="vignette-overlay"></div>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <!-- Aplicação Principal -->
+  <div class="app-shell">
+    <!-- Barra Lateral -->
+    <aside class="sidebar gold-frame" id="sidebar">
+      <div class="brand-block">
+        <div class="brand-crest">🐉</div>
+        <div>
+          <h1 class="brand-title">Segunda-Feira</h1>
+          <div class="brand-subtitle">Central de Dropshipping</div>
+        </div>
+      </div>
+
+      <div class="sim-badge">
+        <span class="pulse-dot"></span>
+        <span>Operação Sem Estoque • Ativa</span>
+      </div>
+
+      <nav class="nav-list" aria-label="Navegação principal">
+        <button class="nav-btn active" data-tab="dashboard">📊 Visão Geral</button>
+        <button class="nav-btn" data-tab="suppliers">🚢 Fornecedores</button>
+        <button class="nav-btn" data-tab="catalog">📦 Catálogo & Pedidos</button>
+        <button class="nav-btn" data-tab="calculator">🧮 Calculadora de Lucro</button>
+        <button class="nav-btn" data-tab="finance">💰 Financeiro & Caixa</button>
+        <button class="nav-btn" data-tab="reports">📜 Relatórios</button>
+        <button class="nav-btn" data-tab="ai">🧠 Agente Segunda-Feira</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="capital-mini-card">
+          <small>Capital Disponível (Simulado)</small>
+          <strong id="sidebarCapital">R$ 0,00</strong>
+        </div>
+        <button class="btn-obsidian btn-sm" id="btnResetDemo">↺ Restaurar Cenário Demo</button>
+      </div>
+    </aside>
+
+    <!-- Coluna Principal -->
+    <div class="main-column">
+      <header class="topbar gold-frame">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-only" id="btnMenuToggle" aria-label="Abrir menu">☰</button>
+          <div>
+            <h2 class="page-title" id="pageTitle">Visão Geral da Operação</h2>
+            <p class="page-subtitle" id="pageSubtitle">Controle estratégico de vendas sem estoque próprio</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <span class="status-pill">
+            <span class="status-dot online" id="simStatusDot"></span>
+            <span id="simStatusText">Simulação em Tempo Real</span>
+          </span>
+          <button class="btn-gold-outline btn-sm" id="btnQuickSimSale">⚡ Simular 1 Pedido</button>
+          <button class="btn-gold btn-sm" id="btnOpenAI">🐉 Consultar IA</button>
+        </div>
+      </header>
+
+      <div class="governance-banner gold-frame-subtle">
+        <span>
+          <strong>Modelo Dropshipping Zero Estoque:</strong> O cliente compra na loja, o gateway retém a taxa, o repasse ao fornecedor ocorre após o pedido e a margem líquida alimenta seu caixa de escala.
+        </span>
+        <span class="tag-gold" id="topBreakEvenBadge">ROAS Break-Even: 0.00x</span>
+      </div>
+
+      <main class="workspace">
+        <!-- 1. VISÃO GERAL -->
+        <section class="tab-section active" id="tab-dashboard">
+          <div class="kpi-grid">
+            <article class="kpi-card panel gold-frame">
+              <span class="kpi-label">Faturamento Bruto</span>
+              <strong class="kpi-value text-gold" id="kpiRevenue">R$ 0,00</strong>
+              <span class="kpi-meta" id="kpiOrdersMeta">0 pedidos processados</span>
+            </article>
+            <article class="kpi-card panel gold-frame">
+              <span class="kpi-label">Lucro Líquido Real</span>
+              <strong class="kpi-value text-success" id="kpiProfit">R$ 0,00</strong>
+              <span class="kpi-meta" id="kpiMarginMeta">Margem líquida média: 0%</span>
+            </article>
+            <article class="kpi-card panel gold-frame">
+              <span class="kpi-label">Repasse a Fornecedores</span>
+              <strong class="kpi-value" id="kpiSupplierCost">R$ 0,00</strong>
+              <span class="kpi-meta">Custo produto + frete direto</span>
+            </article>
+            <article class="kpi-card panel gold-frame">
+              <span class="kpi-label">ROAS Médio Operacional</span>
+              <strong class="kpi-value text-gold" id="kpiRoas">0.00x</strong>
+              <span class="kpi-meta" id="kpiAdsMeta">Investido em tráfego: R$ 0,00</span>
+            </article>
+          </div>
+
+          <div class="grid-2-col">
+            <article class="panel gold-frame">
+              <div class="panel-header">
+                <h3>Curva de Receita vs. Lucro Líquido</h3>
+                <span class="tag-gold">Últimos ciclos</span>
+              </div>
+              <div class="chart-box" id="revenueChartBox"></div>
+            </article>
+
+            <article class="panel gold-frame">
+              <div class="panel-header">
+                <h3>Saúde da Operação & Alertas</h3>
+                <button class="btn-link btn-sm" data-goto="ai">Pedir plano à IA →</button>
+              </div>
+              <ul class="context-list" id="dashboardAlerts"></ul>
+            </article>
+          </div>
+
+          <article class="panel gold-frame">
+            <div class="panel-header wrap-header">
+              <h3>Produtos Campeões (Sem Estoque)</h3>
+              <button class="btn-gold-outline btn-sm" data-goto="catalog">Gerenciar Catálogo</button>
+            </div>
+            <div class="cards-grid" id="dashboardTopProducts"></div>
+          </article>
+        </section>
+
+        <!-- 2. FORNECEDORES -->
+        <section class="tab-section" id="tab-suppliers">
+          <div class="grid-asymmetric">
+            <article class="panel gold-frame">
+              <div class="panel-header wrap-header">
+                <h3>Rede de Fornecedores Homologados</h3>
+                <div class="filter-row">
+                  <input type="search" id="supplierSearch" class="input-obsidian" style="width: 190px;" placeholder="Buscar fornecedor..." />
+                  <select id="supplierOriginFilter" class="input-obsidian" style="width: 150px;">
+                    <option value="all">Todas origens</option>
+                    <option value="Brasil">Brasil (Nacional)</option>
+                    <option value="China">China (Cross-border)</option>
+                    <option value="EUA">EUA / Global</option>
+                  </select>
+                </div>
+              </div>
+              <div class="cards-grid" id="suppliersGrid"></div>
+            </article>
+
+            <article class="panel gold-frame">
+              <div class="panel-header">
+                <h3>Homologar Novo Fornecedor</h3>
+                <span class="tag-gold">Score Automático</span>
+              </div>
+              <form id="supplierForm" class="form-stack">
+                <label class="field">
+                  Nome do Fornecedor
+                  <input type="text" id="supName" class="input-obsidian" placeholder="Ex: CJ Dropshipping BR" required />
+                </label>
+                <div class="field-row">
+                  <label class="field">
+                    Origem / CD
+                    <select id="supOrigin" class="input-obsidian">
+                      <option value="Brasil">Brasil</option>
+                      <option value="China">China</option>
+                      <option value="EUA">EUA</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    Prazo Médio (dias)
+                    <input type="number" id="supLeadTime" class="input-obsidian" min="1" max="60" value="7" required />
+                  </label>
+                </div>
+                <div class="field-row">
+                  <label class="field">
+                    Taxa de Entrega (%)
+                    <input type="number" id="supReliability" class="input-obsidian" min="50" max="100" step="0.5" value="96.5" required />
+                  </label>
+                  <label class="field">
+                    Frete Médio (R$)
+                    <input type="number" id="supShipping" class="input-obsidian" min="0" step="0.5" value="18.90" required />
+                  </label>
+                </div>
+                <label class="field">
+                  Integração / Observação
+                  <input type="text" id="supNotes" class="input-obsidian" placeholder="Ex: Envio com código de rastreio em 24h" />
+                </label>
+                <button type="submit" class="btn-gold">Cadastrar & Avaliar Fornecedor</button>
+              </form>
+            </article>
+          </div>
+        </section>
+
+        <!-- 3. CATÁLOGO & SIMULAÇÃO DE PEDIDOS -->
+        <section class="tab-section" id="tab-catalog">
+          <div class="grid-asymmetric">
+            <article class="panel gold-frame">
+              <div class="panel-header wrap-header">
+                <h3>Catálogo Drop (Venda Direta do Fornecedor)</h3>
+                <span class="tag-gold" id="catalogCountBadge">0 SKUs ativos</span>
+              </div>
+              <div class="cards-grid" id="catalogGrid"></div>
+            </article>
+
+            <article class="panel gold-frame">
+              <div class="panel-header">
+                <h3>Adicionar Produto ao Catálogo</h3>
+              </div>
+              <form id="productForm" class="form-stack">
+                <label class="field">
+                  Nome do Produto
+                  <input type="text" id="prodName" class="input-obsidian" placeholder="Ex: Luminária Levitação Magnética" required />
+                </label>
+                <label class="field">
+                  Fornecedor Vinculado
+                  <select id="prodSupplier" class="input-obsidian" required></select>
+                </label>
+                <div class="field-row-3">
+                  <label class="field">
+                    Custo (R$)
+                    <input type="number" id="prodCost" class="input-obsidian" min="1" step="0.01" value="54.00" required />
+                  </label>
+                  <label class="field">
+                    Frete (R$)
+                    <input type="number" id="prodShipping" class="input-obsidian" min="0" step="0.01" value="16.00" required />
+                  </label>
+                  <label class="field">
+                    Venda (R$)
+                    <input type="number" id="prodPrice" class="input-obsidian" min="1" step="0.01" value="179.90" required />
+                  </label>
+                </div>
+                <label class="field">
+                  CPA Estimado em Anúncios (R$)
+                  <input type="number" id="prodCpa" class="input-obsidian" min="0" step="0.5" value="38.00" required />
+                </label>
+                <button type="submit" class="btn-gold">Salvar Produto no Catálogo</button>
+              </form>
+            </article>
+          </div>
+        </section>
+
+        <!-- 4. CALCULADORA DE LUCRO -->
+        <section class="tab-section" id="tab-calculator">
+          <div class="grid-asymmetric">
+            <article class="panel gold-frame">
+              <div class="panel-header wrap-header">
+                <h3>Calculadora Avançada de Precificação</h3>
+                <button class="btn-obsidian btn-sm" id="btnSyncCalcFromTop">Puxar Produto Campeão</button>
+              </div>
+              <div class="form-stack">
+                <div class="field-row">
+                  <label class="field">
+                    Custo do Produto no Fornecedor (R$)
+                    <input type="number" id="calcCost" class="input-obsidian" value="48.00" min="0" step="0.5" />
+                  </label>
+                  <label class="field">
+                    Frete / Logística Direta (R$)
+                    <input type="number" id="calcShipping" class="input-obsidian" value="15.00" min="0" step="0.5" />
+                  </label>
+                </div>
+
+                <div class="field-row">
+                  <label class="field">
+                    Preço de Venda na Loja (R$)
+                    <input type="number" id="calcPrice" class="input-obsidian" value="169.90" min="1" step="0.5" />
+                  </label>
+                  <label class="field">
+                    CPA / Custo por Aquisição Ads (R$)
+                    <input type="number" id="calcCpa" class="input-obsidian" value="35.00" min="0" step="0.5" />
+                  </label>
+                </div>
+
+                <div class="field-row-3">
+                  <label class="field">
+                    Taxa Gateway (%)
+                    <input type="number" id="calcGateway" class="input-obsidian" value="4.99" min="0" max="30" step="0.1" />
+                  </label>
+                  <label class="field">
+                    Imposto / NF (%)
+                    <input type="number" id="calcTax" class="input-obsidian" value="6.0" min="0" max="40" step="0.5" />
+                  </label>
+                  <label class="field">
+                    Reserva Chargeback (%)
+                    <input type="number" id="calcRisk" class="input-obsidian" value="2.5" min="0" max="20" step="0.5" />
+                  </label>
+                </div>
+
+                <label class="range-field">
+                  <span>Meta de Pedidos Mensais (Escala): <strong id="calcVolumeLabel" class="text-gold">150 pedidos/mês</strong></span>
+                  <input type="range" id="calcVolume" min="10" max="1500" step="10" value="150" />
+                </label>
+              </div>
+            </article>
+
+            <article class="panel gold-frame">
+              <div class="panel-header">
+                <h3>Raio-X de Lucratividade</h3>
+                <span class="tag-status ok" id="calcHealthBadge">Margem Saudável</span>
+              </div>
+
+              <div class="calc-results-grid">
+                <div class="metric-box">
+                  <span>Lucro Líquido / Pedido</span>
+                  <strong id="resUnitProfit" class="text-success">R$ 0,00</strong>
+                </div>
+                <div class="metric-box">
+                  <span>Margem Líquida</span>
+                  <strong id="resMarginPct" class="text-gold">0,0%</strong>
+                </div>
+                <div class="metric-box">
+                  <span>ROAS Mínimo (Empate)</span>
+                  <strong id="resBreakEvenRoas">0.00x</strong>
+                </div>
+                <div class="metric-box">
+                  <span>ROAS Atual Estimado</span>
+                  <strong id="resCurrentRoas" class="text-gold">0.00x</strong>
+                </div>
+              </div>
+
+              <div class="breakdown-section">
+                <h4>Composição de Cada Venda</h4>
+                <div class="stacked-bar" id="calcStackedBar"></div>
+                <ul class="breakdown-list" id="calcBreakdownList"></ul>
+              </div>
+
+              <div class="lot-summary gold-frame-subtle">
+                <h4>Projeção do Lote Mensal</h4>
+                <ul class="breakdown-list" id="calcLotSummary"></ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 5. FINANCEIRO & CAIXA -->
+        <section class="tab-section" id="tab-finance">
+          <div class="grid-asymmetric">
+            <article class="panel gold-frame">
+              <div class="panel-header wrap-header">
+                <h3>Livro-Razão Financeiro (Simulado)</h3>
+                <span class="tag-gold" id="financeBalanceBadge">Saldo: R$ 0,00</span>
+              </div>
+              <div class="ledger-list" id="ledgerList"></div>
+            </article>
+
+            <article class="panel gold-frame">
+              <div class="panel-header">
+                <h3>Alocação de Caixa & Lançamento</h3>
+              </div>
+
+              <div class="form-stack">
+                <div class="alloc-readonly" id="allocSummaryBox"></div>
+
+                <label class="range-field">
+                  <span>Reinvestimento em Tráfego Pago: <strong id="allocAdsVal" class="text-gold">45%</strong></span>
+                  <input type="range" id="allocAdsRange" min="10" max="75" value="45" />
+                </label>
+                <label class="range-field">
+                  <span>Reserva de Chargeback & Contingência: <strong id="allocReserveVal" class="text-gold">20%</strong></span>
+                  <input type="range" id="allocReserveRange" min="5" max="40" value="20" />
+                </label>
+
+                <hr class="gold-divider" />
+
+                <form id="ledgerForm" class="form-stack">
+                  <label class="field">
+                    Descrição do Lançamento
+                    <input type="text" id="txDesc" class="input-obsidian" placeholder="Ex: Recarga Meta Ads ou Aporte" required />
+                  </label>
+                  <div class="field-row">
+                    <label class="field">
+                      Tipo
+                      <select id="txType" class="input-obsidian">
+                        <option value="in">Entrada (+)</option>
+                        <option value="out">Saída (-)</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      Valor (R$)
+                      <input type="number" id="txAmount" class="input-obsidian" min="1" step="0.01" value="250.00" required />
+                    </label>
+                  </div>
+                  <button type="submit" class="btn-gold">Registrar no Caixa Virtual</button>
+                </form>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 6. RELATÓRIOS -->
+        <section class="tab-section" id="tab-reports">
+          <article class="panel gold-frame">
+            <div class="panel-header wrap-header">
+              <h3>Relatório Executivo Consolidado</h3>
+              <div class="btn-row">
+                <button class="btn-gold-outline btn-sm" id="btnGenerateSnapshot">📸 Gerar Snapshot</button>
+                <button class="btn-gold btn-sm" id="btnExportCsv">⬇ Exportar CSV</button>
+              </div>
+            </div>
+            <div class="report-summary-grid" id="reportSummaryGrid"></div>
+            <div class="ledger-wrap">
+              <h4>Histórico de Auditoria & Snapshots</h4>
+              <div class="history-list" id="reportsHistoryList"></div>
+            </div>
+          </article>
+        </section>
+
+        <!-- 7. AGENTE DE IA -->
+        <section class="tab-section" id="tab-ai">
+          <div class="grid-asymmetric">
+            <article class="panel gold-frame chat-panel">
+              <div class="panel-header wrap-header">
+                <div class="ai-identity">
+                  <div class="dragon-avatar">🐉</div>
+                  <div>
+                    <h3 style="margin:0;">Segunda-Feira • Estrategista de Dropshipping</h3>
+                    <small class="text-muted">Análise contextual em tempo real dos seus números</small>
+                  </div>
+                </div>
+                <span class="tag-gold" id="aiModeBadge">Motor Local Inteligente</span>
+              </div>
+
+              <div class="chat-messages" id="chatMessages"></div>
+
+              <div class="quick-prompts">
+                <button class="prompt-chip" data-prompt="Analise minha margem líquida e meu ROAS atual">📊 Analisar margem e ROAS</button>
+                <button class="prompt-chip" data-prompt="Qual fornecedor oferece menor risco logístico agora?">🚢 Avaliar fornecedores</button>
+                <button class="prompt-chip" data-prompt="Qual produto devo escalar primeiro sem comprometer o caixa?">🚀 Plano de escala</button>
+                <button class="prompt-chip" data-prompt="Como reduzir chargebacks e reembolsos no dropshipping?">🛡️ Blindar operação</button>
+              </div>
+
+              <form class="chat-input-row" id="chatForm">
+                <input type="text" id="chatInput" class="input-obsidian" placeholder="Pergunte sobre precificação, fornecedores, CPA ou escala..." autocomplete="off" />
+                <button type="submit" class="btn-gold">Enviar</button>
+              </form>
+            </article>
+
+            <article class="panel gold-frame context-box">
+              <div class="panel-header">
+                <h3>Contexto Lido pela IA</h3>
+              </div>
+              <ul class="context-list" id="aiContextList"></ul>
+
+              <hr class="gold-divider spaced-row" />
+
+              <h4>Modo API Externa (Opcional)</h4>
+              <p class="text-muted" style="font-size:0.78rem; line-height:1.45; margin-top:0;">
+                Por padrão, o agente responde instantaneamente offline com base nos seus dados reais da plataforma. Caso queira, você pode conectar uma chave compatível com OpenAI (armazenada apenas no seu navegador).
+              </p>
+              <div class="form-stack">
+                <label class="field">
+                  Chave OpenAI (opcional)
+                  <input type="password" id="aiApiKeyInput" class="input-obsidian" placeholder="sk-..." />
+                </label>
+                <div class="btn-row">
+                  <button type="button" class="btn-gold-outline btn-sm" id="btnSaveApiKey">Salvar Chave</button>
+                  <button type="button" class="btn-obsidian btn-sm" id="btnClearChat">Limpar Conversa</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = 'segunda_feira_dropship_v1';
+
+      const formatBRL = (val) =>
+        new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(val) || 0);
+
+      const formatPct = (val) => `${(Number(val) || 0).toFixed(1).replace('.', ',')}%`;
+
+      const escapeHtml = (str) =>
+        String(str ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+
+      const defaultState = () => ({
+        capital: 4850.0,
+        allocAdsPct: 45,
+        allocReservePct: 20,
+        suppliers: [
+          {
+            id: 'sup-1',
+            name: 'Obsidian Express BR',
+            origin: 'Brasil',
+            leadTime: 5,
+            reliability: 98.2,
+            shipping: 15.9,
+            notes: 'CD São Paulo • Despacho em até 24h úteis'
+          },
+          {
+            id: 'sup-2',
+            name: 'CJ Priority Line',
+            origin: 'China',
+            leadTime: 14,
+            reliability: 94.6,
+            shipping: 19.5,
+            notes: 'Linha aérea direta com código de rastreio'
+          },
+          {
+            id: 'sup-3',
+            name: 'Atlas Warehousing',
+            origin: 'EUA',
+            leadTime: 11,
+            reliability: 96.0,
+            shipping: 26.0,
+            notes: 'Especializado em eletrônicos e casa premium'
+          }
+        ],
+        products: [
+          {
+            id: 'prod-1',
+            name: 'Projetor Galáxia Aurora 4K',
+            supplierId: 'sup-1',
+            cost: 52.0,
+            shipping: 15.9,
+            price: 189.9,
+            cpa: 36.0,
+            sales: 42
+          },
+          {
+            id: 'prod-2',
+            name: 'Corretor Postural Inteligente',
+            supplierId: 'sup-2',
+            cost: 29.0,
+            shipping: 19.5,
+            price: 129.9,
+            cpa: 28.0,
+            sales: 31
+          },
+          {
+            id: 'prod-3',
+            name: 'Escova Vaporizadora Pet',
+            supplierId: 'sup-1',
+            cost: 24.5,
+            shipping: 14.9,
+            price: 109.9,
+            cpa: 23.0,
+            sales: 54
+          }
+        ],
+        ledger: [
+          { id: 'tx-1', date: 'Hoje • 10:15', desc: 'Lote 12x Escova Vaporizadora Pet (Líquido)', type: 'in', amount: 441.6 },
+          { id: 'tx-2', date: 'Hoje • 09:40', desc: 'Investimento Meta Ads — Campanha Escala', type: 'out', amount: 320.0 },
+          { id: 'tx-3', date: 'Ontem', desc: 'Lote 8x Projetor Galáxia Aurora 4K (Líquido)', type: 'in', amount: 528.8 },
+          { id: 'tx-4', date: 'Ontem', desc: 'Aporte Inicial de Capital de Giro', type: 'in', amount: 4200.0 }
+        ],
+        reports: [
+          {
+            id: 'rep-1',
+            date: 'Ciclo Inicial',
+            revenue: 14560.4,
+            profit: 4180.2,
+            orders: 127,
+            note: 'Operação validada sem estoque próprio'
+          }
+        ],
+        calc: {
+          cost: 52.0,
+          shipping: 15.9,
+          price: 189.9,
+          cpa: 36.0,
+          gateway: 4.99,
+          tax: 6.0,
+          risk: 2.5,
+          volume: 150
+        },
+        chat: [
+          {
+            role: 'ai',
+            time: 'Agora',
+            text: 'Saudações, estrategista. Sou Segunda-Feira, sua inteligência operacional.\nEstou monitorando seus fornecedores, margens e capital sem estoque em tempo real. Qual decisão quer validar hoje?'
+          }
+        ],
+        apiKey: ''
+      });
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return defaultState();
+          const parsed = JSON.parse(raw);
+          return { ...defaultState(), ...parsed };
+        } catch {
+          return defaultState();
+        }
+      }
+
+      let state = loadState();
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (err) {
+          console.warn('Falha ao salvar no localStorage:', err);
+        }
+      }
+
+      function showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(showToast._timer);
+        showToast._timer = setTimeout(() => el.classList.remove('show'), 2800);
+      }
+
+      // Métricas unitárias de um produto
+      function computeProductUnitMetrics(prod) {
+        const gatewayFee = prod.price * (state.calc.gateway / 100);
+        const taxFee = prod.price * (state.calc.tax / 100);
+        const riskFee = prod.price * (state.calc.risk / 100);
+        const totalCost = prod.cost + prod.shipping + prod.cpa + gatewayFee + taxFee + riskFee;
+        const unitProfit = prod.price - totalCost;
+        const marginPct = prod.price > 0 ? (unitProfit / prod.price) * 100 : 0;
+        const roas = prod.cpa > 0 ? prod.price / prod.cpa : 0;
+        return { gatewayFee, taxFee, riskFee, totalCost, unitProfit, marginPct, roas };
+      }
+
+      function computeTotals() {
+        let revenue = 0;
+        let profit = 0;
+        let supplierCost = 0;
+        let adsSpend = 0;
+        let orders = 0;
+
+        state.products.forEach((p) => {
+          const m = computeProductUnitMetrics(p);
+          const s = p.sales || 0;
+          revenue += p.price * s;
+          profit += m.unitProfit * s;
+          supplierCost += (p.cost + p.shipping) * s;
+          adsSpend += p.cpa * s;
+          orders += s;
+        });
+
+        const avgMargin = revenue > 0 ? (profit / revenue) * 100 : 0;
+        const avgRoas = adsSpend > 0 ? revenue / adsSpend : 0;
+        const fixedPct = (state.calc.gateway + state.calc.tax + state.calc.risk) / 100;
+        const avgPrice = orders > 0 ? revenue / orders : state.calc.price;
+        const avgProductDirect = orders > 0 ? supplierCost / orders : state.calc.cost + state.calc.shipping;
+        const contribPerUnit = avgPrice * (1 - fixedPct) - avgProductDirect;
+        const breakEvenRoas = contribPerUnit > 0 ? avgPrice / contribPerUnit : 0;
+
+        return { revenue, profit, supplierCost, adsSpend, orders, avgMargin, avgRoas, breakEvenRoas };
+      }
+
+      function supplierScore(sup) {
+        const speedScore = Math.max(0, 100 - sup.leadTime * 2.2);
+        return Math.round(sup.reliability * 0.65 + speedScore * 0.35);
+      }
+
+      // Navegação entre abas
+      const tabMeta = {
+        dashboard: ['Visão Geral da Operação', 'Controle estratégico de vendas sem estoque próprio'],
+        suppliers: ['Análise de Fornecedores', 'Score de entrega, prazo logístico e origem'],
+        catalog: ['Catálogo & Pedidos Simulados', 'Produtos conectados diretamente aos fornecedores'],
+        calculator: ['Calculadora de Lucro & ROAS', 'Simule precificação, taxas de gateway, impostos e escala'],
+        finance: ['Financeiro & Caixa Virtual', 'Fluxo de caixa, alocação de tráfego e livro-razão'],
+        reports: ['Relatórios Executivos', 'Snapshots consolidados e exportação CSV'],
+        ai: ['Agente Segunda-Feira', 'Consultor de IA conectado aos dados reais da sua operação']
+      };
+
+      function switchTab(tabId) {
+        document.querySelectorAll('.nav-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === tabId));
+        document.querySelectorAll('.tab-section').forEach((s) => s.classList.toggle('active', s.id === `tab-${tabId}`));
+
+        const [title, sub] = tabMeta[tabId] || tabMeta.dashboard;
+        document.getElementById('pageTitle').textContent = title;
+        document.getElementById('pageSubtitle').textContent = sub;
+
+        closeMobileMenu();
+      }
+
+      function closeMobileMenu() {
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('drawerBackdrop').classList.remove('open');
+      }
+
+      // Renderização Global
+      function renderAll() {
+        const totals = computeTotals();
+
+        document.getElementById('sidebarCapital').textContent = formatBRL(state.capital);
+        document.getElementById('topBreakEvenBadge').textContent = `ROAS Break-Even: ${totals.breakEvenRoas.toFixed(2)}x`;
+
+        renderDashboard(totals);
+        renderSuppliers();
+        renderCatalog();
+        renderCalculator();
+        renderFinance();
+        renderReports(totals);
+        renderAIContext(totals);
+        renderChat();
+      }
+
+      function renderDashboard(totals) {
+        document.getElementById('kpiRevenue').textContent = formatBRL(totals.revenue);
+        document.getElementById('kpiOrdersMeta').textContent = `${totals.orders} pedidos processados`;
+        document.getElementById('kpiProfit').textContent = formatBRL(totals.profit);
+        document.getElementById('kpiMarginMeta').textContent = `Margem líquida média: ${formatPct(totals.avgMargin)}`;
+        document.getElementById('kpiSupplierCost').textContent = formatBRL(totals.supplierCost);
+        document.getElementById('kpiRoas').textContent = `${totals.avgRoas.toFixed(2)}x`;
+        document.getElementById('kpiAdsMeta').textContent = `Investido em tráfego: ${formatBRL(totals.adsSpend)}`;
+
+        // Gráfico SVG Curva Receita vs Lucro
+        const chartBox = document.getElementById('revenueChartBox');
+        const series = [
+          { label: 'Sem 1', rev: totals.revenue * 0.16, prof: totals.profit * 0.14 },
+          { label: 'Sem 2', rev: totals.revenue * 0.22, prof: totals.profit * 0.21 },
+          { label: 'Sem 3', rev: totals.revenue * 0.28, prof: totals.profit * 0.29 },
+          { label: 'Atual', rev: totals.revenue * 0.34, prof: totals.profit * 0.36 }
+        ];
+        const maxVal = Math.max(...series.map((d) => d.rev), 100);
+        const w = 520, h = 210, padX = 44, padY = 26;
+        const barW = 36;
+
+        const barsSvg = series
+          .map((d, i) => {
+            const x = padX + i * ((w - padX * 2) / series.length) + 20;
+            const revH = Math.max(8, ((h - padY * 2) * d.rev) / maxVal);
+            const profH = Math.max(4, ((h - padY * 2) * Math.max(0, d.prof)) / maxVal);
+            const revY = h - padY - revH;
+            const profY = h - padY - profH;
+            return `
+              <rect x="${x}" y="${revY}" width="${barW}" height="${revH}" rx="6" fill="rgba(212,175,55,0.35)" stroke="#d4af37" />
+              <rect x="${x + barW + 6}" y="${profY}" width="${barW}" height="${profH}" rx="6" fill="rgba(69,196,134,0.68)" stroke="#45c486" />
+              <text x="${x + barW}" y="${h - 6}" text-anchor="middle" fill="#a69f91" font-size="11">${d.label}</text>
+            `;
+          })
+          .join('');
+
+        chartBox.innerHTML = `
+          <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto;">
+            <line x1="${padX}" y1="${h - padY}" x2="${w - 20}" y2="${h - padY}" stroke="rgba(212,175,55,0.25)" />
+            ${barsSvg}
+          </svg>
+          <div style="display:flex; gap:16px; justify-content:center; font-size:0.76rem; color:var(--text-muted);">
+            <span><span class="dot-legend" style="background:#d4af37;"></span>Faturamento Bruto</span>
+            <span><span class="dot-legend" style="background:#45c486;"></span>Lucro Líquido</span>
+          </div>
+        `;
+
+        // Alertas estratégicos
+        const bestProd = [...state.products].sort(
+          (a, b) => computeProductUnitMetrics(b).unitProfit * b.sales - computeProductUnitMetrics(a).unitProfit * a.sales
+        )[0];
+        const bestSup = [...state.suppliers].sort((a, b) => supplierScore(b) - supplierScore(a))[0];
+
+        document.getElementById('dashboardAlerts').innerHTML = `
+          <li><span>Status do Capital de Giro</span><strong class="${state.capital > 1500 ? 'text-success' : 'text-warning'}">${formatBRL(state.capital)} (${state.capital > 1500 ? 'Saudável' : 'Atenção'})</strong></li>
+          <li><span>Produto Campeão</span><strong class="text-gold">${bestProd ? escapeHtml(bestProd.name) : '—'}</strong></li>
+          <li><span>Fornecedor Líder</span><strong>${bestSup ? `${escapeHtml(bestSup.name)} (${supplierScore(bestSup)} pts)` : '—'}</strong></li>
+          <li><span>Margem vs. Meta (20%)</span><strong class="${totals.avgMargin >= 20 ? 'text-success' : 'text-warning'}">${formatPct(totals.avgMargin)}</strong></li>
+          <li><span>Folga de ROAS sobre Empate</span><strong class="text-gold">+${Math.max(0, totals.avgRoas - totals.breakEvenRoas).toFixed(2)}x</strong></li>
+        `;
+
+        // Top Produtos
+        const topContainer = document.getElementById('dashboardTopProducts');
+        topContainer.innerHTML = state.products
+          .slice(0, 3)
+          .map((p) => {
+            const m = computeProductUnitMetrics(p);
+            const sup = state.suppliers.find((s) => s.id === p.supplierId);
+            return `
+              <div class="entity-card">
+                <div class="card-top">
+                  <h4 class="card-title">${escapeHtml(p.name)}</h4>
+                  <span class="tag-status ${m.marginPct >= 20 ? 'ok' : 'warn'}">${formatPct(m.marginPct)}</span>
+                </div>
+                <div class="meta-grid">
+                  <span>Venda: <strong>${formatBRL(p.price)}</strong></span>
+                  <span>Lucro/un: <strong class="text-success">${formatBRL(m.unitProfit)}</strong></span>
+                  <span>Pedidos: <strong>${p.sales}</strong></span>
+                  <span>Origem: <strong>${sup ? escapeHtml(sup.origin) : '—'}</strong></span>
+                </div>
+                <button class="btn-gold-outline btn-sm" onclick="window.__simSale('${p.id}')">⚡ Simular Venda (+1)</button>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function renderSuppliers() {
+        const q = (document.getElementById('supplierSearch').value || '').toLowerCase();
+        const origin = document.getElementById('supplierOriginFilter').value;
+
+        const filtered = state.suppliers.filter((s) => {
+          const matchText = s.name.toLowerCase().includes(q) || (s.notes || '').toLowerCase().includes(q);
+          const matchOrigin = origin === 'all' || s.origin === origin;
+          return matchText && matchOrigin;
+        });
+
+        const grid = document.getElementById('suppliersGrid');
+        if (!filtered.length) {
+          grid.innerHTML = `<p class="text-muted">Nenhum fornecedor encontrado com os filtros atuais.</p>`;
+        } else {
+          grid.innerHTML = filtered
+            .map((s) => {
+              const score = supplierScore(s);
+              const badgeCls = score >= 88 ? 'ok' : score >= 75 ? 'warn' : 'muted';
+              return `
+                <div class="entity-card">
+                  <div class="card-top">
+                    <h4 class="card-title">${escapeHtml(s.name)}</h4>
+                    <span class="tag-status ${badgeCls}">Score ${score}/100</span>
+                  </div>
+                  <div class="meta-grid">
+                    <span>Origem: <strong>${escapeHtml(s.origin)}</strong></span>
+                    <span>Prazo: <strong>${s.leadTime} dias</strong></span>
+                    <span>Entrega: <strong>${s.reliability}%</strong></span>
+                    <span>Frete méd: <strong>${formatBRL(s.shipping)}</strong></span>
+                  </div>
+                  <small class="text-muted">${escapeHtml(s.notes || 'Sem observações')}</small>
+                  <div class="btn-row">
+                    <button class="btn-danger-outline btn-sm" onclick="window.__removeSupplier('${s.id}')">Remover</button>
+                  </div>
+                </div>
+              `;
+            })
+            .join('');
+        }
+
+        // Atualiza select do formulário de produto
+        const select = document.getElementById('prodSupplier');
+        select.innerHTML = state.suppliers
+          .map((s) => `<option value="${s.id}">${escapeHtml(s.name)} (${escapeHtml(s.origin)} • ${s.leadTime}d)</option>`)
+          .join('');
+      }
+
+      function renderCatalog() {
+        document.getElementById('catalogCountBadge').textContent = `${state.products.length} SKUs ativos`;
+        const grid = document.getElementById('catalogGrid');
+
+        grid.innerHTML = state.products
+          .map((p) => {
+            const sup = state.suppliers.find((s) => s.id === p.supplierId);
+            const m = computeProductUnitMetrics(p);
+            const statusCls = m.unitProfit > 0 ? (m.marginPct >= 18 ? 'ok' : 'warn') : 'muted';
+            return `
+              <div class="entity-card">
+                <div class="card-top">
+                  <h4 class="card-title">${escapeHtml(p.name)}</h4>
+                  <span class="tag-status ${statusCls}">${formatPct(m.marginPct)} margem</span>
+                </div>
+                <small class="text-muted">Fornecedor: <strong>${sup ? escapeHtml(sup.name) : 'Não vinculado'}</strong></small>
+                <div class="meta-grid">
+                  <span>Custo+Frete: <strong>${formatBRL(p.cost + p.shipping)}</strong></span>
+                  <span>Venda: <strong>${formatBRL(p.price)}</strong></span>
+                  <span>CPA Ads: <strong>${formatBRL(p.cpa)}</strong></span>
+                  <span>Lucro Líq.: <strong class="${m.unitProfit >= 0 ? 'text-success' : 'text-danger'}">${formatBRL(m.unitProfit)}</strong></span>
+                </div>
+                <div class="btn-row">
+                  <button class="btn-gold btn-sm" onclick="window.__simSale('${p.id}')">⚡ Simular Pedido</button>
+                  <button class="btn-obsidian btn-sm" onclick="window.__loadToCalc('${p.id}')">🧮 Calcular</button>
+                  <button class="btn-danger-outline btn-sm" onclick="window.__removeProduct('${p.id}')">✕</button>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function renderCalculator() {
+        const c = state.calc;
+        document.getElementById('calcCost').value = c.cost;
+        document.getElementById('calcShipping').value = c.shipping;
+        document.getElementById('calcPrice').value = c.price;
+        document.getElementById('calcCpa').value = c.cpa;
+        document.getElementById('calcGateway').value = c.gateway;
+        document.getElementById('calcTax').value = c.tax;
+        document.getElementById('calcRisk').value = c.risk;
+        document.getElementById('calcVolume').value = c.volume;
+        document.getElementById('calcVolumeLabel').textContent = `${c.volume} pedidos/mês`;
+
+        const gatewayVal = c.price * (c.gateway / 100);
+        const taxVal = c.price * (c.tax / 100);
+        const riskVal = c.price * (c.risk / 100);
+        const feesTotal = gatewayVal + taxVal + riskVal;
+        const supplierVal = c.cost + c.shipping;
+        const unitProfit = c.price - supplierVal - c.cpa - feesTotal;
+        const marginPct = c.price > 0 ? (unitProfit / c.price) * 100 : 0;
+
+        const contribBeforeAds = c.price - supplierVal - feesTotal;
+        const breakEvenRoas = contribBeforeAds > 0 ? c.price / contribBeforeAds : 0;
+        const currentRoas = c.cpa > 0 ? c.price / c.cpa : 0;
+
+        const profitEl = document.getElementById('resUnitProfit');
+        profitEl.textContent = formatBRL(unitProfit);
+        profitEl.className = unitProfit >= 0 ? 'text-success' : 'text-danger';
+
+        document.getElementById('resMarginPct').textContent = formatPct(marginPct);
+        document.getElementById('resBreakEvenRoas').textContent = breakEvenRoas > 0 ? `${breakEvenRoas.toFixed(2)}x` : 'Inviável';
+        document.getElementById('resCurrentRoas').textContent = `${currentRoas.toFixed(2)}x`;
+
+        const badge = document.getElementById('calcHealthBadge');
+        if (marginPct >= 20) {
+          badge.className = 'tag-status ok';
+          badge.textContent = 'Escala Saudável';
+        } else if (marginPct > 5) {
+          badge.className = 'tag-status warn';
+          badge.textContent = 'Margem Apertada';
+        } else {
+          badge.className = 'tag-status muted';
+          badge.textContent = 'Risco de Prejuízo';
+        }
+
+        // Barra empilhada
+        const pSafe = Math.max(c.price, 1);
+        const supPct = Math.min(100, (supplierVal / pSafe) * 100);
+        const adsPct = Math.min(100 - supPct, (c.cpa / pSafe) * 100);
+        const feePct = Math.min(100 - supPct - adsPct, (feesTotal / pSafe) * 100);
+        const profPct = Math.max(0, 100 - supPct - adsPct - feePct);
+
+        document.getElementById('calcStackedBar').innerHTML = `
+          <div style="width:${supPct}%; background:#5f85db;" title="Fornecedor + Frete"></div>
+          <div style="width:${adsPct}%; background:#e5a93c;" title="Tráfego Pago (CPA)"></div>
+          <div style="width:${feePct}%; background:#e05d5d;" title="Taxas + Imposto + Risco"></div>
+          <div style="width:${profPct}%; background:#45c486;" title="Lucro Líquido"></div>
+        `;
+
+        document.getElementById('calcBreakdownList').innerHTML = `
+          <li><span><span class="dot-legend" style="background:#5f85db;"></span>Fornecedor + Frete</span><strong>${formatBRL(supplierVal)}</strong></li>
+          <li><span><span class="dot-legend" style="background:#e5a93c;"></span>Tráfego Pago (CPA)</span><strong>${formatBRL(c.cpa)}</strong></li>
+          <li><span><span class="dot-legend" style="background:#e05d5d;"></span>Gateway + Imposto + Risco</span><strong>${formatBRL(feesTotal)}</strong></li>
+          <li><span><span class="dot-legend" style="background:#45c486;"></span>Lucro Líquido Unitário</span><strong class="${unitProfit >= 0 ? 'text-success' : 'text-danger'}">${formatBRL(unitProfit)}</strong></li>
+        `;
+
+        document.getElementById('calcLotSummary').innerHTML = `
+          <li><span>Faturamento Mensal (${c.volume}x)</span><strong>${formatBRL(c.price * c.volume)}</strong></li>
+          <li><span>Verba de Tráfego Necessária</span><strong>${formatBRL(c.cpa * c.volume)}</strong></li>
+          <li><span>Lucro Líquido Projetado</span><strong class="${unitProfit >= 0 ? 'text-success' : 'text-danger'}">${formatBRL(unitProfit * c.volume)}</strong></li>
+        `;
+      }
+
+      function renderFinance() {
+        document.getElementById('financeBalanceBadge').textContent = `Saldo: ${formatBRL(state.capital)}`;
+
+        const profitReservePct = Math.max(5, 100 - state.allocAdsPct - state.allocReservePct);
+        const adsCash = state.capital * (state.allocAdsPct / 100);
+        const riskCash = state.capital * (state.allocReservePct / 100);
+        const ownerCash = state.capital * (profitReservePct / 100);
+
+        document.getElementById('allocAdsVal').textContent = `${state.allocAdsPct}%`;
+        document.getElementById('allocReserveVal').textContent = `${state.allocReservePct}%`;
+        document.getElementById('allocAdsRange').value = state.allocAdsPct;
+        document.getElementById('allocReserveRange').value = state.allocReservePct;
+
+        document.getElementById('allocSummaryBox').innerHTML = `
+          <div><strong>Distribuição Automática do Saldo (${formatBRL(state.capital)}):</strong></div>
+          <div style="display:flex; justify-content:space-between; margin-top:6px;">
+            <span>Tráfego (${state.allocAdsPct}%): <strong>${formatBRL(adsCash)}</strong></span>
+            <span>Reserva (${state.allocReservePct}%): <strong>${formatBRL(riskCash)}</strong></span>
+            <span>Retirada (${profitReservePct}%): <strong class="text-success">${formatBRL(ownerCash)}</strong></span>
+          </div>
+        `;
+
+        document.getElementById('ledgerList').innerHTML = state.ledger
+          .map(
+            (tx) => `
+            <div class="ledger-item">
+              <div>
+                <strong>${escapeHtml(tx.desc)}</strong>
+                <div class="text-muted" style="font-size:0.75rem;">${escapeHtml(tx.date)}</div>
+              </div>
+              <strong class="${tx.type === 'in' ? 'text-success' : 'text-danger'}">
+                ${tx.type === 'in' ? '+' : '-'} ${formatBRL(tx.amount)}
+              </strong>
+            </div>
+          `
+          )
+          .join('');
+      }
+
+      function renderReports(totals) {
+        document.getElementById('reportSummaryGrid').innerHTML = `
+          <div class="metric-box"><span>SKUs no Catálogo</span><strong>${state.products.length}</strong></div>
+          <div class="metric-box"><span>Fornecedores Ativos</span><strong>${state.suppliers.length}</strong></div>
+          <div class="metric-box"><span>Receita Acumulada</span><strong class="text-gold">${formatBRL(totals.revenue)}</strong></div>
+          <div class="metric-box"><span>Lucro Consolidado</span><strong class="text-success">${formatBRL(totals.profit)}</strong></div>
+        `;
+
+        document.getElementById('reportsHistoryList').innerHTML = state.reports
+          .map(
+            (r) => `
+            <div class="history-item">
+              <div>
+                <strong>${escapeHtml(r.date)}</strong> — ${escapeHtml(r.note)}
+                <div class="text-muted" style="font-size:0.75rem;">${r.orders} pedidos • Receita ${formatBRL(r.revenue)}</div>
+              </div>
+              <strong class="text-success">${formatBRL(r.profit)}</strong>
+            </div>
+          `
+          )
+          .join('');
+      }
+
+      function renderAIContext(totals) {
+        const bestProd = [...state.products].sort(
+          (a, b) => computeProductUnitMetrics(b).unitProfit - computeProductUnitMetrics(a).unitProfit
+        )[0];
+
+        document.getElementById('aiContextList').innerHTML = `
+          <li><span>Capital em Caixa</span><strong>${formatBRL(state.capital)}</strong></li>
+          <li><span>Receita Simulada</span><strong>${formatBRL(totals.revenue)}</strong></li>
+          <li><span>Margem Líquida Média</span><strong>${formatPct(totals.avgMargin)}</strong></li>
+          <li><span>ROAS Atual / Empate</span><strong>${totals.avgRoas.toFixed(2)}x / ${totals.breakEvenRoas.toFixed(2)}x</strong></li>
+          <li><span>Melhor Margem Unitária</span><strong>${bestProd ? escapeHtml(bestProd.name) : '—'}</strong></li>
+        `;
+
+        document.getElementById('aiModeBadge').textContent = state.apiKey
+          ? 'OpenAI Conectada'
+          : 'Motor Local Inteligente';
+        document.getElementById('aiApiKeyInput').value = state.apiKey || '';
+      }
+
+      function renderChat() {
+        const container = document.getElementById('chatMessages');
+        container.innerHTML = state.chat
+          .map(
+            (m) => `
+            <div class="msg-bubble ${m.role}">
+              ${escapeHtml(m.text)}
+              <span class="msg-meta">${m.role === 'ai' ? 'Segunda-Feira IA' : 'Você'} • ${escapeHtml(m.time)}</span>
+            </div>
+          `
+          )
+          .join('');
+        container.scrollTop = container.scrollHeight;
+      }
+
+      // Ações Globais (Simulação & CRUD)
+      window.__simSale = (prodId) => {
+        const prod = state.products.find((p) => p.id === prodId);
+        if (!prod) return;
+        const m = computeProductUnitMetrics(prod);
+        prod.sales = (prod.sales || 0) + 1;
+        state.capital += m.unitProfit;
+        state.ledger.unshift({
+          id: `tx-${Date.now()}`,
+          date: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+          desc: `Venda Sem Estoque: ${prod.name} (Lucro Líq.)`,
+          type: m.unitProfit >= 0 ? 'in' : 'out',
+          amount: Math.abs(m.unitProfit)
+        });
+        saveState();
+        renderAll();
+        showToast(`Pedido simulado! Lucro líquido: ${formatBRL(m.unitProfit)}`);
+      };
+
+      window.__loadToCalc = (prodId) => {
+        const prod = state.products.find((p) => p.id === prodId);
+        if (!prod) return;
+        state.calc.cost = prod.cost;
+        state.calc.shipping = prod.shipping;
+        state.calc.price = prod.price;
+        state.calc.cpa = prod.cpa;
+        saveState();
+        renderCalculator();
+        switchTab('calculator');
+        showToast(`"${prod.name}" carregado na calculadora.`);
+      };
+
+      window.__removeSupplier = (supId) => {
+        if (state.suppliers.length <= 1) {
+          showToast('Mantenha ao menos 1 fornecedor ativo.');
+          return;
+        }
+        state.suppliers = state.suppliers.filter((s) => s.id !== supId);
+        saveState();
+        renderAll();
+        showToast('Fornecedor removido.');
+      };
+
+      window.__removeProduct = (prodId) => {
+        state.products = state.products.filter((p) => p.id !== prodId);
+        saveState();
+        renderAll();
+        showToast('Produto removido do catálogo.');
+      };
+
+      // Motor Inteligente Local de IA (ou API OpenAI opcional)
+      function buildLocalAIResponse(question) {
+        const q = question.toLowerCase();
+        const totals = computeTotals();
+        const bestProd = [...state.products].sort(
+          (a, b) => computeProductUnitMetrics(b).unitProfit - computeProductUnitMetrics(a).unitProfit
+        )[0];
+        const bestSup = [...state.suppliers].sort((a, b) => supplierScore(b) - supplierScore(a))[0];
+
+        if (q.includes('margem') || q.includes('roas') || q.includes('lucro')) {
+          return (
+            `📊 Diagnóstico Financeiro Atual:\n` +
+            `• Margem líquida média: ${formatPct(totals.avgMargin)} (Meta recomendada: ≥ 20%).\n` +
+            `• ROAS atual: ${totals.avgRoas.toFixed(2)}x contra ROAS de empate de ${totals.breakEvenRoas.toFixed(2)}x.\n` +
+            `• Recomendação: ${
+              totals.avgMargin >= 20
+                ? 'Sua operação tem folga saudável. Escale o orçamento de tráfego em +20% a cada 48h nos conjuntos lucrativos.'
+                : 'Aumente o ticket médio usando Order Bump (ex: garantia estendida ou acessório complementar) para elevar o lucro sem subir o CPA.'
+            }`
+          );
+        }
+
+        if (q.includes('fornecedor') || q.includes('logístic') || q.includes('prazo') || q.includes('risco')) {
+          return (
+            `🚢 Análise de Fornecedores:\n` +
+            `• Melhor parceiro hoje: ${bestSup ? `${bestSup.name} (${bestSup.origin}, prazo de ${bestSup.leadTime} dias, score ${supplierScore(bestSup)}/100)` : 'Nenhum cadastrado'}.\n` +
+            `• Dica estratégica: Para escalar com menos disputas no gateway, priorize fornecedores nacionais (entrega em até 7 dias) nos produtos com CPA acima de R$ 30.`
+          );
+        }
+
+        if (q.includes('escala') || q.includes('produto') || q.includes('caixa')) {
+          const m = bestProd ? computeProductUnitMetrics(bestProd) : null;
+          return (
+            `🚀 Plano de Escala Sem Estoque:\n` +
+            `• Produto prioritário: ${bestProd ? `${bestProd.name} (Lucro de ${formatBRL(m.unitProfit)}/un e margem de ${formatPct(m.marginPct)})` : 'Adicione um SKU'}.\n` +
+            `• Verba segura de tráfego agora: ${formatBRL(state.capital * (state.allocAdsPct / 100))} (${state.allocAdsPct}% do seu caixa de ${formatBRL(state.capital)}).\n` +
+            `• Mantenha os ${state.allocReservePct}% de reserva intactos para cobrir eventuais reembolsos durante o pico de vendas.`
+          );
+        }
+
+        if (q.includes('chargeback') || q.includes('reembolso') || q.includes('blind')) {
+          return (
+            `🛡️ Protocolo Anti-Chargeback:\n` +
+            `1. Envie código de rastreio ativo por WhatsApp e e-mail em até 24h após o pedido.\n` +
+            `2. Use fornecedores com confiabilidade acima de 95%.\n` +
+            `3. Mantenha ${state.allocReservePct}% do caixa na reserva de contingência (${formatBRL(state.capital * (state.allocReservePct / 100))}).`
+          );
+        }
+
+        return (
+          `🐉 Leitura Geral Segunda-Feira:\n` +
+          `Você soma ${totals.orders} pedidos simulados, faturamento de ${formatBRL(totals.revenue)}, lucro líquido de ${formatBRL(totals.profit)} e capital disponível de ${formatBRL(state.capital)}.\n` +
+          `Seu melhor ativo atual é "${bestProd ? bestProd.name : '—'}" e seu fornecedor mais confiável é "${bestSup ? bestSup.name : '—'}". Pergunte sobre margem, fornecedores, chargeback ou escala para um plano detalhado.`
+        );
+      }
+
+      async function handleChatSubmit(text) {
+        if (!text.trim()) return;
+        const now = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        state.chat.push({ role: 'user', time: now, text: text.trim() });
+        renderChat();
+
+        let reply = '';
+        if (state.apiKey) {
+          try {
+            const totals = computeTotals();
+            const sysPrompt = `Você é Segunda-Feira, estrategista sênior de dropshipping sem estoque no Brasil. Responda em português de forma objetiva. Contexto atual: Capital=${formatBRL(state.capital)}, Receita=${formatBRL(totals.revenue)}, Lucro=${formatBRL(totals.profit)}, Margem=${formatPct(totals.avgMargin)}, ROAS=${totals.avgRoas.toFixed(2)}x.`;
+            const res = await fetch('https://api.openai.com/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${state.apiKey}`
+              },
+              body: JSON.stringify({
+                model: 'gpt-4o-mini',
+                messages: [
+                  { role: 'system', content: sysPrompt },
+                  { role: 'user', content: text.trim() }
+                ],
+                max_tokens: 320
+              })
+            });
+            const data = await res.json();
+            reply = data?.choices?.[0]?.message?.content || buildLocalAIResponse(text);
+          } catch {
+            reply = buildLocalAIResponse(text);
+          }
+        } else {
+          reply = buildLocalAIResponse(text);
+        }
+
+        state.chat.push({
+          role: 'ai',
+          time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+          text: reply
+        });
+        saveState();
+        renderChat();
+      }
+
+      // Event Listeners
+      document.querySelectorAll('.nav-btn').forEach((btn) =>
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab))
+      );
+
+      document.querySelectorAll('[data-goto]').forEach((btn) =>
+        btn.addEventListener('click', () => switchTab(btn.dataset.goto))
+      );
+
+      document.getElementById('btnOpenAI').addEventListener('click', () => switchTab('ai'));
+
+      document.getElementById('btnMenuToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.add('open');
+        document.getElementById('drawerBackdrop').classList.add('open');
+      });
+
+      document.getElementById('drawerBackdrop').addEventListener('click', closeMobileMenu);
+
+      document.getElementById('btnQuickSimSale').addEventListener('click', () => {
+        if (!state.products.length) return showToast('Cadastre um produto primeiro.');
+        const pick = state.products[Math.floor(Math.random() * state.products.length)];
+        window.__simSale(pick.id);
+      });
+
+      document.getElementById('btnResetDemo').addEventListener('click', () => {
+        state = defaultState();
+        saveState();
+        renderAll();
+        showToast('Cenário demonstração restaurado!');
+      });
+
+      document.getElementById('supplierSearch').addEventListener('input', renderSuppliers);
+      document.getElementById('supplierOriginFilter').addEventListener('change', renderSuppliers);
+
+      document.getElementById('supplierForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        state.suppliers.unshift({
+          id: `sup-${Date.now()}`,
+          name: document.getElementById('supName').value.trim(),
+          origin: document.getElementById('supOrigin').value,
+          leadTime: Number(document.getElementById('supLeadTime').value),
+          reliability: Number(document.getElementById('supReliability').value),
+          shipping: Number(document.getElementById('supShipping').value),
+          notes: document.getElementById('supNotes').value.trim()
+        });
+        e.target.reset();
+        saveState();
+        renderAll();
+        showToast('Fornecedor homologado com sucesso!');
+      });
+
+      document.getElementById('productForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        state.products.unshift({
+          id: `prod-${Date.now()}`,
+          name: document.getElementById('prodName').value.trim(),
+          supplierId: document.getElementById('prodSupplier').value,
+          cost: Number(document.getElementById('prodCost').value),
+          shipping: Number(document.getElementById('prodShipping').value),
+          price: Number(document.getElementById('prodPrice').value),
+          cpa: Number(document.getElementById('prodCpa').value),
+          sales: 0
+        });
+        e.target.reset();
+        saveState();
+        renderAll();
+        showToast('SKU adicionado ao catálogo!');
+      });
+
+      ['calcCost', 'calcShipping', 'calcPrice', 'calcCpa', 'calcGateway', 'calcTax', 'calcRisk', 'calcVolume'].forEach(
+        (id) => {
+          document.getElementById(id).addEventListener('input', () => {
+            state.calc = {
+              cost: Number(document.getElementById('calcCost').value) || 0,
+              shipping: Number(document.getElementById('calcShipping').value) || 0,
+              price: Number(document.getElementById('calcPrice').value) || 1,
+              cpa: Number(document.getElementById('calcCpa').value) || 0,
+              gateway: Number(document.getElementById('calcGateway').value) || 0,
+              tax: Number(document.getElementById('calcTax').value) || 0,
+              risk: Number(document.getElementById('calcRisk').value) || 0,
+              volume: Number(document.getElementById('calcVolume').value) || 10
+            };
+            saveState();
+            renderCalculator();
+          });
+        }
+      );
+
+      document.getElementById('btnSyncCalcFromTop').addEventListener('click', () => {
+        if (state.products[0]) window.__loadToCalc(state.products[0].id);
+      });
+
+      document.getElementById('allocAdsRange').addEventListener('input', (e) => {
+        state.allocAdsPct = Number(e.target.value);
+        if (state.allocAdsPct + state.allocReservePct > 95) {
+          state.allocReservePct = 95 - state.allocAdsPct;
+        }
+        saveState();
+        renderFinance();
+      });
+
+      document.getElementById('allocReserveRange').addEventListener('input', (e) => {
+        state.allocReservePct = Number(e.target.value);
+        if (state.allocAdsPct + state.allocReservePct > 95) {
+          state.allocAdsPct = 95 - state.allocReservePct;
+        }
+        saveState();
+        renderFinance();
+      });
+
+      document.getElementById('ledgerForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const desc = document.getElementById('txDesc').value.trim();
+        const type = document.getElementById('txType').value;
+        const amount = Number(document.getElementById('txAmount').value);
+        state.capital += type === 'in' ? amount : -amount;
+        state.ledger.unshift({
+          id: `tx-${Date.now()}`,
+          date: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+          desc,
+          type,
+          amount
+        });
+        e.target.reset();
+        saveState();
+        renderAll();
+        showToast('Movimentação registrada no caixa.');
+      });
+
+      document.getElementById('btnGenerateSnapshot').addEventListener('click', () => {
+        const totals = computeTotals();
+        state.reports.unshift({
+          id: `rep-${Date.now()}`,
+          date: new Date().toLocaleString('pt-BR'),
+          revenue: totals.revenue,
+          profit: totals.profit,
+          orders: totals.orders,
+          note: `ROAS ${totals.avgRoas.toFixed(2)}x • Margem ${formatPct(totals.avgMargin)}`
+        });
+        saveState();
+        renderReports(totals);
+        showToast('Snapshot salvo no histórico!');
+      });
+
+      document.getElementById('btnExportCsv').addEventListener('click', () => {
+        const rows = [['Produto', 'Venda (R$)', 'Custo+Frete (R$)', 'CPA (R$)', 'Pedidos', 'Lucro Unitario (R$)']];
+        state.products.forEach((p) => {
+          const m = computeProductUnitMetrics(p);
+          rows.push([p.name, p.price.toFixed(2), (p.cost + p.shipping).toFixed(2), p.cpa.toFixed(2), p.sales, m.unitProfit.toFixed(2)]);
+        });
+        const csv = rows.map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'segunda-feira-dropshipping.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('CSV exportado!');
+      });
+
+      document.getElementById('chatForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('chatInput');
+        const val = input.value;
+        input.value = '';
+        handleChatSubmit(val);
+      });
+
+      document.querySelectorAll('.prompt-chip').forEach((chip) =>
+        chip.addEventListener('click', () => handleChatSubmit(chip.dataset.prompt))
+      );
+
+      document.getElementById('btnSaveApiKey').addEvent
